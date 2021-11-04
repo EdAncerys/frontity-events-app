@@ -1,7 +1,7 @@
 const Root = () => {
   return (
     <>
-      You can edit your package in:
+      You can edit your package in edited:
       <pre>packages/events-theme/src/index.js</pre>
     </>
   );
@@ -10,12 +10,12 @@ const Root = () => {
 export default {
   name: "events-theme",
   roots: {
-    theme: Root
+    theme: Root,
   },
   state: {
-    theme: {}
+    theme: {},
   },
   actions: {
-    theme: {}
-  }
+    theme: {},
+  },
 };
