@@ -1,21 +1,22 @@
-const Root = () => {
-  return (
-    <>
-      You can edit your package in edited:
-      <pre>packages/events-theme/src/index.js</pre>
-    </>
-  );
-};
+import Root from "./screens/index";
 
-export default {
-  name: "events-theme",
+const myFirstTheme = {
+  name: "event-theme",
   roots: {
     theme: Root,
   },
   state: {
-    theme: {},
+    theme: {
+      isUrlVisible: true,
+    },
   },
   actions: {
-    theme: {},
+    theme: {
+      toggleUrl: ({ state }) => {
+        state.theme.isUrlVisible = !state.theme.isUrlVisible;
+      },
+    },
   },
 };
+
+export default myFirstTheme;
