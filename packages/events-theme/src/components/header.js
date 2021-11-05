@@ -7,20 +7,35 @@ import { colors } from "../config/colors";
 
 const Header = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
+  const isLoggedIn = state.theme.isLoggedIn;
+  console.log("isLoggedIn", isLoggedIn);
 
   // HELPERS --------------------------------
-  const ServeLoginAction = () => {
-    return;
-    {
-      state.theme.isUrlVisible ? (
-        <>
-          Current URL: {state.router.link}{" "}
-          <Button onClick={actions.theme.toggleUrl}>&#x3c; Hide URL</Button>
-        </>
-      ) : (
-        <Button onClick={actions.theme.toggleUrl}>Show URL &#x3e;</Button>
+  const handleLogOut = () => {
+    actions.theme.setLogin(false);
+  };
+
+  const ServeAuthAction = () => {
+    if (!isLoggedIn)
+      return (
+        <div>
+          <Link className="btn btn-primary m-2" link="/login">
+            Login
+          </Link>
+        </div>
       );
-    }
+    if (isLoggedIn)
+      return (
+        <div>
+          <Link
+            className="btn btn-danger m-2"
+            link="/login"
+            onClick={handleLogOut}
+          >
+            Logout
+          </Link>
+        </div>
+      );
   };
 
   return (
@@ -35,9 +50,7 @@ const Header = ({ state, actions }) => {
             <Link className="m-2" link="/">
               Home
             </Link>
-            <Link className="btn btn-primary m-2" link="/login">
-              Login
-            </Link>
+            <ServeAuthAction />
           </div>
         </div>
       </div>

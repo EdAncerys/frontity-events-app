@@ -7,14 +7,16 @@ const myFirstTheme = {
   },
   state: {
     theme: {
-      isUrlVisible: true,
+      isLoggedIn: false,
     },
   },
   actions: {
     theme: {
-      toggleUrl: ({ state }) => {
-        state.theme.isUrlVisible = !state.theme.isUrlVisible;
-      },
+      setLogin:
+        ({ state }) =>
+        (value) => {
+          state.theme.isLoggedIn = value;
+        },
     },
   },
 };

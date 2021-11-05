@@ -22,8 +22,12 @@ const login = ({ state, actions }) => {
     };
     const data = await fetch(URL, requestOptions);
     const response = await data.json();
-    if (response.token) actions.router.set("/");
-    if (response.data.status !== 200) alert(`${response.message}`);
+    if (response.token) {
+      actions.router.set("/");
+      actions.theme.setLogin(true);
+    } else {
+      alert(`${response.message}`);
+    }
   };
 
   return (
@@ -54,7 +58,7 @@ const login = ({ state, actions }) => {
         <label className="form-check-label">Check me out</label>
       </div>
       <button type="submit" className="btn btn-primary" onClick={submitForm}>
-        Submit!
+        Login
       </button>
     </div>
   );

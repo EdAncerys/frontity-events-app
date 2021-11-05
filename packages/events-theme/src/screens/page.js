@@ -7,7 +7,7 @@ const Post = ({ state }) => {
   const data = state.source.get(state.router.link);
   const post = state.source[data.type][data.id];
   const author = state.source.author[post.author];
-  console.log("data ", data); // debug
+  // console.log("data ", data); // debug
 
   if (data.route === "/login/") return <Login />;
 
