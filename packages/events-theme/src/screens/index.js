@@ -4,7 +4,7 @@ import React from "react";
 import { connect, Global, css, styled } from "frontity";
 import Link from "@frontity/components/link";
 import Switch from "@frontity/components/switch";
-import { globalCSS } from "../config/css";
+import globalCSS from "../css/bootstrap.min.css";
 
 import List from "./list";
 import Post from "./post";
@@ -26,8 +26,9 @@ const Root = ({ state, actions }) => {
         `}
       />
       <Header />
+
       <Main>
-        <h1>index.js edited!</h1>
+        <h1>index.js edited</h1>
         <Switch>
           <Loading when={data.isFetching} />
           <Error when={data.isError} />
