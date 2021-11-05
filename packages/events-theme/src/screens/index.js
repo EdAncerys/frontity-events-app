@@ -28,7 +28,6 @@ const Root = ({ state, actions }) => {
       <Header />
 
       <Main>
-        <h1>index.js edited</h1>
         <Switch>
           <Loading when={data.isFetching} />
           <Error when={data.isError} />
@@ -36,7 +35,6 @@ const Root = ({ state, actions }) => {
           <List when={data.isArchive} />
           <Post when={data.isPost} />
           <Page when={data.isPage} />
-          <Page when={data.isDestinations} />
         </Switch>
       </Main>
     </div>

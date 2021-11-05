@@ -32,11 +32,11 @@ const Header = ({ state, actions }) => {
             <p className="text-primary fs-4 m-2">Frontity Event App</p>
           </div>
           <div style={styles.menu}>
-            <Link className="btn btn-primary m-2" link="/">
+            <Link className="m-2" link="/">
               Home
             </Link>
-            <Link className="btn btn-primary m-2" link="/about-us">
-              About Us
+            <Link className="btn btn-primary m-2" link="/login">
+              Login
             </Link>
           </div>
         </div>
