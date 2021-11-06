@@ -35,6 +35,12 @@ const home = ({ state, actions }) => {
       <Carousel fade>
         {allEvents.map((item) => {
           const { title, event_logo } = item.acf;
+          const link = item.link;
+          
+          // HELPERS ----------------------------------------------------
+          const handleGoToEvent = () => {
+            actions.router.set(link);
+          };
 
           return (
             <Carousel.Item key={item.id}>
@@ -51,9 +57,9 @@ const home = ({ state, actions }) => {
               <Carousel.Caption>
                 <div style={styles.container}>
                   <p style={styles.carouselTitle}>{title}</p>
-                  <Link link={item.link} className="btn btn-primary">
+                  <button className="btn btn-primary" onClick={handleGoToEvent}>
                     Go To Event
-                  </Link>
+                  </button>
                 </div>
               </Carousel.Caption>
             </Carousel.Item>

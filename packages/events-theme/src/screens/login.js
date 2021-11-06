@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "frontity";
-import Link from "@frontity/components/link";
 
 const login = ({ state, actions }) => {
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // HELPERS ----------------------------------------------------
   const handleUserLogin = async () => {
     console.log("handleUserLogin triggered");
+    if (username === "" || password === "") return;
     const URL = "http://localhost:8888/events/wp-json/jwt-auth/v1/token";
 
     const userCredentials = JSON.stringify({
@@ -20,13 +20,17 @@ const login = ({ state, actions }) => {
       headers: { "Content-Type": "application/json" },
       body: userCredentials,
     };
-    const data = await fetch(URL, requestOptions);
-    const response = await data.json();
-    if (response.token) {
-      actions.router.set("/");
-      actions.theme.setLogin(true);
-    } else {
-      alert(`${response.message}`);
+    try {
+      const data = await fetch(URL, requestOptions);
+      const response = await data.json();
+      if (response.token) {
+        actions.router.set("/");
+        actions.theme.setLogin(true);
+      } else {
+        alert(`${response.message}`);
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
@@ -57,7 +61,11 @@ const login = ({ state, actions }) => {
         <input type="checkbox" className="form-check-input" />
         <label className="form-check-label">Check me out</label>
       </div>
-      <button type="submit" className="btn btn-primary" onClick={handleUserLogin}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleUserLogin}
+      >
         Login
       </button>
     </div>

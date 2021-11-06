@@ -22,12 +22,16 @@ const CreateAccount = ({ state, actions }) => {
       headers: { "Content-Type": "application/json" },
       body: userCredentials,
     };
-    const data = await fetch(URL, requestOptions);
-    const response = await data.json();
-    if (response.token) {
-      return response.token;
-    } else {
-      console.log("Failed to auth");
+    try {
+      const data = await fetch(URL, requestOptions);
+      const response = await data.json();
+      if (response.token) {
+        return response.token;
+      } else {
+        console.log("Failed to auth");
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 

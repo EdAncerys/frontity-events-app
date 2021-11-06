@@ -18,7 +18,7 @@ import Error from "./error";
 const Root = ({ state, actions }) => {
   const endPoint = state.router.link;
   const data = state.source.get(endPoint);
-  // console.log("data ", data); // debug
+  console.log("data ", data); // debug
 
   return (
     <div>
@@ -29,9 +29,9 @@ const Root = ({ state, actions }) => {
           <Loading when={data.isFetching} />
           <Error when={data.isError} />
 
-          <Events when={endPoint === "/events/"} />
           <Login when={endPoint === "/login/"} />
           <CreateAccount when={endPoint === "/create-account/"} />
+          <Events when={data.isEventsArchive} />
           <Home when={data.isHome} />
           <Post when={data.isPost} />
           <Page when={data.isPage} />

@@ -7,12 +7,17 @@ const events = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   // console.log("data", data); // debug
 
-  // HELPERS ------------------------------
+  // HELPERS ----------------------------------------------------
   const ServeEventComponent = ({ item }) => {
     const event = state.source[data.type][item.id].acf;
     const { title, event_date, event_ovner, event_logo, event_start_time } =
       event;
-    const { link } = item;
+    const link = item.link;
+
+    // HELPERS ----------------------------------------------------
+    const handleGoToEvent = () => {
+      actions.router.set(link);
+    };
 
     return (
       <div className="card m-2" style={{ width: "18em" }}>
@@ -26,9 +31,9 @@ const events = ({ state, actions }) => {
               Event Start Time: {event_start_time}
             </li>
           </ul>
-          <Link link={link} className="btn btn-primary">
+          <button className="btn btn-primary" onClick={handleGoToEvent}>
             More
-          </Link>
+          </button>
         </div>
       </div>
     );
