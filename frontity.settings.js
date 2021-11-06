@@ -23,7 +23,7 @@ const settings = {
       name: "@frontity/wp-source",
       state: {
         source: {
-          url: "http://localhost:8888/events/",
+          url: "http://localhost:8888/events",
           postTypes: [
             {
               type: "events",

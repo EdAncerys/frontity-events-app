@@ -1,14 +1,15 @@
 import React from "react";
-import { connect, styled } from "frontity";
+import { connect, Global, css } from "frontity";
 import Link from "@frontity/components/link";
 import HeadComponent from "./headComponent";
+import bootStrapCSS from "../css/bootstrap.min.css";
+import globalCSS from "../css/main.css";
 
 import { colors } from "../config/colors";
 
 const Header = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const isLoggedIn = state.theme.isLoggedIn;
-  console.log("isLoggedIn", isLoggedIn);
 
   // HELPERS --------------------------------
   const handleLogOut = () => {
@@ -40,6 +41,11 @@ const Header = ({ state, actions }) => {
 
   return (
     <>
+      <Global
+        styles={css`
+          ${bootStrapCSS}, ${globalCSS}
+        `}
+      />
       <HeadComponent />
       <div style={styles.header}>
         <div style={styles.wrapper}>
@@ -49,6 +55,12 @@ const Header = ({ state, actions }) => {
           <div style={styles.menu}>
             <Link className="m-2" link="/">
               Home
+            </Link>
+            <Link className="m-2" link="/events">
+              Events
+            </Link>
+            <Link className="m-2" link="/create-account">
+              New Account
             </Link>
             <ServeAuthAction />
           </div>

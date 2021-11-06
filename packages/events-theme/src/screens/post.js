@@ -2,7 +2,6 @@ import React from "react";
 import { connect, styled } from "frontity";
 
 const Post = ({ state }) => {
-  console.log("path ", state.router.link); //debug
   const data = state.source.get(state.router.link);
   const post = state.source[data.type][data.id];
   const author = state.source.author[post.author];

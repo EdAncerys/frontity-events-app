@@ -6,4 +6,6 @@ export const colors = {
   black: "#090910",
   danger: "#A9333A",
   silver: "#EEEEEE",
+  shade: "rgba(0, 0, 0, 0.25)",
+  shadeIntense: "rgba(0, 0, 0, 0.5)",
 };

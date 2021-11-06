@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect, Global, css, styled } from "frontity";
+import { connect } from "frontity";
 import Link from "@frontity/components/link";
 
 const login = ({ state, actions }) => {

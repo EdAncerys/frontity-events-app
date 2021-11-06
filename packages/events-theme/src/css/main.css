@@ -1,3 +1,22 @@
+body {
+  font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont;
+}
+
+.home-title {
+  font-size: 40px;
+  font-weight: 400;
+  color: rgb(52, 190, 130);
+}
+
 a {
-  underline: none;
+  display: block;
+  margin: 6px 0;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.main-container {
+  max-width: 800px;
+  padding: 1em;
+  margin: auto;
 }
