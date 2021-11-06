@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap");
+
 body {
-  font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont;
+  font-family: "Red Hat Mono", monospace;
 }
 
 .home-title {
