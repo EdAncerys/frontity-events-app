@@ -30,13 +30,13 @@ const home = ({ state, actions }) => {
   return (
     <div>
       <div>
-        <p style={styles.title}>Our Famous Events</p>
+        <p style={styles.title}>Our Featured Events</p>
       </div>
       <Carousel fade>
         {allEvents.map((item) => {
           const { title, event_logo } = item.acf;
           const link = item.link;
-          
+
           // HELPERS ----------------------------------------------------
           const handleGoToEvent = () => {
             actions.router.set(link);
@@ -66,6 +66,9 @@ const home = ({ state, actions }) => {
           );
         })}
       </Carousel>
+      <div>
+        <p style={styles.subTitle}>All Events You Want To Be Part Off</p>
+      </div>
     </div>
   );
 };
@@ -82,11 +85,18 @@ const styles = {
     fontWeight: "600",
     color: colors.white,
   },
+  subTitle: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600",
+    padding: "1rem 0",
+    color: colors.primary,
+  },
   title: {
     textAlign: "center",
     fontSize: 40,
-    fontWeight: "400",
-    color: colors.secondary,
+    fontWeight: "500",
+    color: colors.primary,
   },
   shade: {
     position: "absolute",

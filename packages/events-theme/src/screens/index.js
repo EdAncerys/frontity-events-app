@@ -5,12 +5,13 @@ import { connect } from "frontity";
 import Switch from "@frontity/components/switch";
 
 import Header from "../components/header";
-import Events from "./events";
+import AllEvents from "./allEvents";
 import Post from "./post";
 import Page from "./page";
 import Login from "./login";
 import Home from "./home";
 import CreateAccount from "./createAccount";
+import Event from "./event";
 // HELPERS ----------------------------------------------------------------
 import Loading from "../components/loading";
 import Error from "./error";
@@ -31,8 +32,10 @@ const Root = ({ state, actions }) => {
 
           <Login when={endPoint === "/login/"} />
           <CreateAccount when={endPoint === "/create-account/"} />
-          <Events when={data.isEventsArchive} />
+          <AllEvents when={data.isEventsArchive} />
           <Home when={data.isHome} />
+          <Event when={data.isEvents} />
+
           <Post when={data.isPost} />
           <Page when={data.isPage} />
         </Switch>

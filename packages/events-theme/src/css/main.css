@@ -18,7 +18,13 @@ a {
 }
 
 .main-container {
-  max-width: 800px;
+  max-width: 1000px;
   padding: 1em;
   margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .main-container {
+    width: 100%;
+  }
 }

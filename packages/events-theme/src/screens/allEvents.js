@@ -1,9 +1,8 @@
 import React from "react";
 import { connect, styled } from "frontity";
-import Link from "@frontity/components/link";
 import Image from "@frontity/components/image";
 
-const events = ({ state, actions }) => {
+const allEvents = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   // console.log("data", data); // debug
 
@@ -21,7 +20,12 @@ const events = ({ state, actions }) => {
 
     return (
       <div className="card m-2" style={{ width: "18em" }}>
-        <Image src={event_logo.url} className="card-img-top" />
+        <Image
+          src={event_logo.url}
+          alt={title}
+          height={200}
+          className="card-img-top"
+        />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{title}</p>
@@ -75,6 +79,7 @@ const styles = {
   container: {
     display: "flex",
     flex: 1,
+    flexWrap: "wrap",
     justifyContent: "center",
     flexDirection: "row",
   },
@@ -106,4 +111,4 @@ const PrevNextNav = styled.div`
   }
 `;
 
-export default connect(events);
+export default connect(allEvents);

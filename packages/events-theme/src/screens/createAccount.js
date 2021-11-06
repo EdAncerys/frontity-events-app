@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "frontity";
-import Link from "@frontity/components/link";
 
 const CreateAccount = ({ state, actions }) => {
   const [username, setUsername] = useState("");

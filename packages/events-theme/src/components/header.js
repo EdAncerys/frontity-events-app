@@ -80,6 +80,7 @@ const styles = {
   wrapper: {
     display: "flex",
     flex: 1,
+    alignItems: "center",
   },
   title: {
     display: "flex",
