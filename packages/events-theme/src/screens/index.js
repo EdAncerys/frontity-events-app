@@ -10,6 +10,7 @@ import Post from "./post";
 import Page from "./page";
 import Login from "./login";
 import Home from "./home";
+import CreateAccount from "./createAccount";
 // HELPERS ----------------------------------------------------------------
 import Loading from "../components/loading";
 import Error from "./error";
@@ -30,6 +31,7 @@ const Root = ({ state, actions }) => {
 
           <Events when={endPoint === "/events/"} />
           <Login when={endPoint === "/login/"} />
+          <CreateAccount when={endPoint === "/create-account/"} />
           <Home when={data.isHome} />
           <Post when={data.isPost} />
           <Page when={data.isPage} />

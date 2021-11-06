@@ -62,8 +62,8 @@ const Header = ({ state, actions }) => {
             <Link className="m-2" link="/create-account">
               New Account
             </Link>
-            <ServeAuthAction />
           </div>
+          <ServeAuthAction />
         </div>
       </div>
     </>

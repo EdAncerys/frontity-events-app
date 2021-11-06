@@ -7,8 +7,8 @@ const login = ({ state, actions }) => {
   const [password, setPassword] = useState(null);
 
   // HELPERS ----------------------------------------------------
-  const submitForm = async () => {
-    console.log("Submit Form triggered");
+  const handleUserLogin = async () => {
+    console.log("handleUserLogin triggered");
     const URL = "http://localhost:8888/events/wp-json/jwt-auth/v1/token";
 
     const userCredentials = JSON.stringify({
@@ -57,7 +57,7 @@ const login = ({ state, actions }) => {
         <input type="checkbox" className="form-check-input" />
         <label className="form-check-label">Check me out</label>
       </div>
-      <button type="submit" className="btn btn-primary" onClick={submitForm}>
+      <button type="submit" className="btn btn-primary" onClick={handleUserLogin}>
         Login
       </button>
     </div>

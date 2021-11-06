@@ -92,7 +92,7 @@ const styles = {
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: IMAGE_HEIGHT / 4,
+    height: IMAGE_HEIGHT / 3.5,
     backgroundColor: colors.shadeIntense,
   },
 };
