@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "frontity";
 import Image from "@frontity/components/image";
+import { colors } from "../config/colors";
 
 const event = ({ state, actions }) => {
   const [allPanelists, setAllPanelists] = useState([]);
@@ -37,7 +38,7 @@ const event = ({ state, actions }) => {
     if (panelists === "") return null;
 
     return (
-      <div style={{ paddingTop: 50 }}>
+      <div>
         <h4 style={styles.title}>Event Panelists</h4>
         <div style={styles.panelistContainer}>
           <ServePanelists />
@@ -55,7 +56,10 @@ const event = ({ state, actions }) => {
 
       return (
         <div key={panelist.id}>
-          <div className="card" style={{ width: "14rem" }}>
+          <div
+            className="card"
+            style={{ width: "14rem", marginBlockStart: 10 }}
+          >
             <Image src={image.url} alt={first_name} className="card-img-top" />
             <div className="card-body">
               <p className="card-text">
@@ -69,10 +73,60 @@ const event = ({ state, actions }) => {
     });
   };
 
+  const ServeRegistration = () => {
+    if (!state.theme.isLoggedIn)
+      return (
+        <div>
+          <p className="card-text">
+            You need to be logged in to register for {title}
+          </p>
+        </div>
+      );
+
+    return (
+      <div className="form-group text-start">
+        <div className="form-group ">
+          <label>Confirm Email address</label>
+          <input
+            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            className="form-control"
+            placeholder="Enter email or username"
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
+        </div>
+        <div className="form-group ">
+          <label>Select number of guests</label>
+          <select className="form-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+          </select>
+        </div>
+        <div className="form-group form-check ">
+          <input type="checkbox" className="form-check-input" />
+          <label className="form-check-label">Check me out</label>
+        </div>
+        <button
+          type="submit"
+          className="btn"
+          style={{ color: colors.white, backgroundColor: colors.primary }}
+          // onClick={handleUserLogin}
+        >
+          Register
+        </button>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <div className="card text-center">
-        <div className="card-header" style={styles.container}>
+    <div style={styles.container}>
+      <div className="card text-center" style={{ width: "700px" }}>
+        <div className="card-header" style={styles.cardHeader}>
           <div>
             <button
               type="submit"
@@ -91,8 +145,15 @@ const event = ({ state, actions }) => {
           <div dangerouslySetInnerHTML={{ __html: content }} />
           <ServePanelistContainer />
         </div>
-        <div className="card-footer text-start text-muted">
-          Event Starting Date: {event_date}
+
+        <div className="card text-center">
+          <div className="card-header">Register for {title} event</div>
+          <div className="card-body">
+            <ServeRegistration />
+          </div>
+          <div className="card-footer text-muted">
+            Event Starting Date: {event_date}
+          </div>
         </div>
       </div>
     </div>
@@ -101,6 +162,10 @@ const event = ({ state, actions }) => {
 
 const styles = {
   container: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  cardHeader: {
     display: "flex",
     flex: 1,
     flexDirection: "row",
@@ -116,6 +181,7 @@ const styles = {
     display: "flex",
     flex: 1,
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-around",
     padding: "50px 0",
   },

@@ -73,21 +73,6 @@ const login = ({ state, actions }) => {
       >
         Login
       </button>
-      <button
-        type="submit"
-        className="btn"
-        style={{ backgroundColor: "pink" }}
-        onClick={() => handleEncryption({ jwt: "hello" })}
-      >
-        handleEncryption
-      </button>
-      <button
-        type="submit"
-        className="btn btn-warning"
-        onClick={() => handleSetCookie({ value: "cookie value", name: "3" })}
-      >
-        Set Cookie
-      </button>
     </div>
   );
 };

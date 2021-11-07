@@ -13,6 +13,7 @@ const Header = ({ state, actions }) => {
 
   // HELPERS --------------------------------
   const handleLogOut = () => {
+    actions.theme.setTaken(null);
     actions.theme.setLogin(false);
   };
 
