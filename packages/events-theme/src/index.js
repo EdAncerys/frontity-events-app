@@ -7,6 +7,7 @@ const myFirstTheme = {
   },
   state: {
     theme: {
+      jwt: null,
       isLoggedIn: false,
     },
   },
@@ -16,6 +17,11 @@ const myFirstTheme = {
         ({ state }) =>
         (value) => {
           state.theme.isLoggedIn = value;
+        },
+      setTaken:
+        ({ state }) =>
+        (value) => {
+          state.theme.jwt = value;
         },
     },
   },

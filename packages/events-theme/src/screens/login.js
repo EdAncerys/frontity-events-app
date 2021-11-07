@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "frontity";
-import { handleSetCookie, handleGetCookie } from "../helpers/cookie";
+import { handleSetCookie, handleEncryption } from "../helpers/cookie";
 
 const login = ({ state, actions }) => {
   const [username, setUsername] = useState("");
@@ -25,9 +25,12 @@ const login = ({ state, actions }) => {
       const data = await fetch(URL, requestOptions);
       const response = await data.json();
       if (response.token) {
-        handleSetCookie({ name: "events", value: response.token });
-        actions.router.set("/");
+        const encryptedJWT = handleEncryption({ jwt: response.token }); // encrypting provided jwt
+        handleSetCookie({ name: "events", value: encryptedJWT }); // set cookie in the browser
+
+        actions.theme.setTaken(response.token);
         actions.theme.setLogin(true);
+        actions.router.set("/");
       } else {
         alert(`${response.message}`);
       }
@@ -70,13 +73,13 @@ const login = ({ state, actions }) => {
       >
         Login
       </button>
-      {/* <button
+      <button
         type="submit"
         className="btn"
         style={{ backgroundColor: "pink" }}
-        onClick={() => handleGetCookie({ name: "3" })}
+        onClick={() => handleEncryption({ jwt: "hello" })}
       >
-        GET Cookie
+        handleEncryption
       </button>
       <button
         type="submit"
@@ -84,7 +87,7 @@ const login = ({ state, actions }) => {
         onClick={() => handleSetCookie({ value: "cookie value", name: "3" })}
       >
         Set Cookie
-      </button> */}
+      </button>
     </div>
   );
 };

@@ -34,3 +34,23 @@ export const handleGetCookie = ({ name }) => {
     return null;
   }
 };
+
+export const handleEncryption = ({ jwt }) => {
+  if (!jwt) {
+    console.log("Token not provided!");
+    return;
+  }
+  const bcrypt = require("bcryptjs");
+  const saltRounds = 10;
+
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hash = bcrypt.hashSync(jwt, salt);
+  const valid = bcrypt.compareSync(jwt, hash); // validate encrypted token
+
+  if (valid) {
+    console.log("Encryption successful!");
+    return hash;
+  } else {
+    console.log("Failed to encrypt the taken!");
+  }
+};
