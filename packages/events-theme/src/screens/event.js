@@ -4,6 +4,7 @@ import Image from "@frontity/components/image";
 import { colors } from "../config/colors";
 
 const event = ({ state, actions }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [allPanelists, setAllPanelists] = useState([]);
   const [allPanelistsID, setAllPanelistsID] = useState([]);
   const data = state.source.get(state.router.link);
@@ -11,7 +12,10 @@ const event = ({ state, actions }) => {
 
   const { title, event_date, event_logo, panelists } = eventData.acf;
   const content = eventData.content.rendered;
-  console.log(panelists);
+
+  useEffect(() => {
+    setIsLoggedIn(state.theme.isLoggedIn);
+  }, []);
 
   // GETTING PANELIST DATA ----------------------------------------------------------------
   if (panelists !== "")
@@ -74,7 +78,7 @@ const event = ({ state, actions }) => {
   };
 
   const ServeRegistration = () => {
-    if (!state.theme.isLoggedIn)
+    if (!isLoggedIn)
       return (
         <div>
           <p className="card-text">
@@ -100,7 +104,7 @@ const event = ({ state, actions }) => {
         <div className="form-group ">
           <label>Select number of guests</label>
           <select className="form-select">
-            <option selected>Open this select menu</option>
+            <option defaultValue>Open this select menu</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>

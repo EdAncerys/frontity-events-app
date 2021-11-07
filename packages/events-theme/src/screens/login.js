@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "frontity";
-import { handleSetCookie, handleEncryption } from "../helpers/cookie";
+import {
+  handleSetCookie,
+  handleEncryption,
+  handleGetCookie,
+} from "../helpers/cookie";
 
 const login = ({ state, actions }) => {
   const [username, setUsername] = useState("");
@@ -73,6 +77,26 @@ const login = ({ state, actions }) => {
       >
         Login
       </button>
+
+      <div style={{ display: "flex", flexDirection: "column", marginTop: 50 }}>
+        <p>Dev panel</p>
+        <button
+          type="submit"
+          className="btn btn-warning"
+          onClick={() =>
+            handleSetCookie({ name: "hello2", deleteCookie: true })
+          }
+        >
+          handleSetCookie
+        </button>
+        <button
+          type="submit"
+          className="btn btn-success mt-4"
+          onClick={() => handleGetCookie({ name: "hello2" })}
+        >
+          handleGetCookie
+        </button>
+      </div>
     </div>
   );
 };

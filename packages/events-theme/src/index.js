@@ -13,6 +13,10 @@ const myFirstTheme = {
   },
   actions: {
     theme: {
+      beforeCSR: async ({ state, actions }) => {
+        console.log("beforeCSR triggered"); // debug
+        if (document.cookie) state.theme.isLoggedIn = true;
+      },
       setLogin:
         ({ state }) =>
         (value) => {

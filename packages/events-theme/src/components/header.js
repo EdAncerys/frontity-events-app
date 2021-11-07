@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect, Global, css } from "frontity";
 import Link from "@frontity/components/link";
 import HeadComponent from "./headComponent";
 import bootStrapCSS from "../css/bootstrap.min.css";
 import globalCSS from "../css/main.css";
+import { handleSetCookie } from "../helpers/cookie";
 
 import { colors } from "../config/colors";
 
 const Header = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
-  const isLoggedIn = state.theme.isLoggedIn;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(state.theme.isLoggedIn);
+  }, []);
 
   // HELPERS --------------------------------
   const handleLogOut = () => {
     actions.theme.setTaken(null);
     actions.theme.setLogin(false);
+    actions.router.set("/login");
   };
 
   const ServeAuthAction = () => {

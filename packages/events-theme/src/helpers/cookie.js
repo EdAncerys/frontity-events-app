@@ -1,19 +1,24 @@
-export const handleSetCookie = ({ name, value, exDays }) => {
+export const handleSetCookie = ({ name, value, exDays, deleteCookie }) => {
   // setting defaults
   let expires = "",
     cookieName = "cookie",
     cookieValue = "🍪 value not set!",
-    cookieExDays = 1;
+    cookieExDays = 1,
+    expiredDate = "Thu, 01-Jan-1970 00:00:01 GMT;";
+
   if (name) cookieName = name;
   if (value) cookieValue = value;
   if (exDays) cookieExDays = exDays;
 
-  if (cookieExDays) {
-    const date = new Date();
+  const date = new Date();
+  if (deleteCookie) {
+    expires = expiredDate;
+  } else {
     date.setTime(date.getTime() + cookieExDays * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
+    expires = `; expires=${date.toUTCString()}`;
   }
-  const cookie = cookieName + "=" + cookieValue + ";" + expires + "; path=/";
+
+  const cookie = `${cookieName}=${cookieValue};${expires}; path=/`;
   document.cookie = cookie;
   console.log("🍪  set to: ", cookie); // debug
 };
