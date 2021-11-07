@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "frontity";
+import { handleSetCookie, handleGetCookie } from "../helpers/cookie";
 
 const login = ({ state, actions }) => {
   const [username, setUsername] = useState("");
@@ -24,6 +25,7 @@ const login = ({ state, actions }) => {
       const data = await fetch(URL, requestOptions);
       const response = await data.json();
       if (response.token) {
+        handleSetCookie({ name: "events", value: response.token });
         actions.router.set("/");
         actions.theme.setLogin(true);
       } else {
@@ -68,6 +70,21 @@ const login = ({ state, actions }) => {
       >
         Login
       </button>
+      {/* <button
+        type="submit"
+        className="btn"
+        style={{ backgroundColor: "pink" }}
+        onClick={() => handleGetCookie({ name: "3" })}
+      >
+        GET Cookie
+      </button>
+      <button
+        type="submit"
+        className="btn btn-warning"
+        onClick={() => handleSetCookie({ value: "cookie value", name: "3" })}
+      >
+        Set Cookie
+      </button> */}
     </div>
   );
 };

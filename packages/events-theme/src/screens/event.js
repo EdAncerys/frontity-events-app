@@ -12,9 +12,10 @@ const event = ({ state, actions }) => {
   const content = eventData.content.rendered;
   console.log(panelists);
 
-  // GETTING DATA ----------------------------------------------------------------
+  // GETTING PANELIST DATA ----------------------------------------------------------------
   if (panelists !== "")
     useEffect(async () => {
+      // http://localhost:8888/events/wp-json/wp/v2/panelists
       await actions.source.fetch("/panelists"); // pre-fetch required data
       const panelistsEndPoint = await state.source.get("/panelists"); // get data
       const panelistsObject = Object.values(panelistsEndPoint.items);
