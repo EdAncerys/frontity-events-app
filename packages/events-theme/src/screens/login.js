@@ -92,7 +92,7 @@ const login = ({ state, actions }) => {
         <button
           type="submit"
           className="btn btn-success mt-4"
-          onClick={() => handleGetCookie({ name: "hello2" })}
+          onClick={() => handleGetCookie({ name: "events" })}
         >
           handleGetCookie
         </button>

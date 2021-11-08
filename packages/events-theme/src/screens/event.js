@@ -102,17 +102,19 @@ const ServePanelistContainer = ({ panelists, ServePanelists }) => {
 };
 
 const event = ({ state, actions }) => {
+  const data = state.source.get(state.router.link);
+  const event = state.source[data.type][data.id];
+  // console.log("eventData ", data); //debug
+
   const [allPanelistsID, setAllPanelistsID] = useState([]);
   const [allPanelists, setAllPanelists] = useState([]);
+  const [eventData, setEventData] = useState(event);
+  const [update, setUpdate] = useState(false);
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  const data = state.source.get(state.router.link);
-  const eventData = state.source[data.type][data.id];
-  // console.log("eventData ", eventData); //debug
 
   const { title, event_date, event_logo, panelists, attendees } = eventData.acf;
   const content = eventData.content.rendered;
@@ -180,11 +182,15 @@ const event = ({ state, actions }) => {
       if (response.id) {
         const URL = `http://localhost:8888/events/wp-json/wp/v2/events/${eventData.id}`;
         // Extracting event panelist IDs
-        const currentAttendees = Object.values(attendees).map((attendee) => {
-          return { ID: attendee.ID };
-        });
-        const updatedAttendees = [...currentAttendees, { ID: response.id }];
-        console.log("updatedAttendees", updatedAttendees);
+        let updatedAttendees;
+        if (attendees) {
+          const currentAttendees = Object.values(attendees).map((attendee) => {
+            return { ID: attendee.ID };
+          });
+          updatedAttendees = [...currentAttendees, { ID: response.id }];
+        } else {
+          updatedAttendees = [{ ID: response.id }];
+        }
 
         const eventAttendees = JSON.stringify({
           fields: {
@@ -200,6 +206,13 @@ const event = ({ state, actions }) => {
         const data = await fetch(URL, requestOptions);
         const updateResponseData = await data.json();
         console.log("updateResponseData", updateResponseData);
+
+        // updating screen data --------------------------------
+        await actions.source.fetch(`${state.router.link}`); // pre-fetch required data
+        const updateData = state.source.get(state.router.link);
+        const updateEvent = state.source[updateData.type][updateData.id];
+        console.log("updateEvent", updateEvent);
+        setEventData(updateEvent);
       } else {
         console.log("Failed to update event data");
       }
@@ -235,7 +248,7 @@ const event = ({ state, actions }) => {
   };
 
   const ServeAttendeesContainer = () => {
-    if (panelists === "") return null;
+    if (!attendees) return null;
 
     return (
       <div>
@@ -286,6 +299,7 @@ const event = ({ state, actions }) => {
               handleSubmitRegistration={handleSubmitRegistration}
             />
           </div>
+
           <div className="card-footer text-muted">
             Event Starting Date: {event_date}
           </div>

@@ -16,6 +16,15 @@ const myFirstTheme = {
       beforeCSR: async ({ state, actions }) => {
         console.log("beforeCSR triggered"); // debug
         // if (document.cookie) state.theme.isLoggedIn = true;
+        // await Promise.all([actions.source.fetch("/events")]);
+      },
+      afterCSR: async ({ state, actions }) => {
+        setInterval(async () => {
+          console.log("refresh cycle");
+          await actions.source.fetch(`/events/`);
+          // determine if there is an update between frontiy state and wp rest api info
+          // if true do something
+        }, 1000);
       },
       setLogin:
         ({ state }) =>
