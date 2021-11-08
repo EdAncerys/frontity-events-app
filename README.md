@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Frontity](https://frontity.org/).
 
-### <span style="color:#C85C5C">Simple and basic frontity app to help test the Word Press & forntity.</span>
+### <span style="color:#C85C5C">Simple and basic web app to help test the Word Press & forntity framework.</span>
 
 Webb app have basic events project actions & usages.User able browse for featured events and hosting panelists.
 Featuring login/logout functionality & JWT and encrypted cookie 🍪 storage.
