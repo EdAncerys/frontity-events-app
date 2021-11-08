@@ -10,11 +10,6 @@ import { colors } from "../config/colors";
 
 const Header = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(state.theme.isLoggedIn);
-  }, []);
 
   // HELPERS --------------------------------
   const handleLogOut = () => {
@@ -24,7 +19,7 @@ const Header = ({ state, actions }) => {
   };
 
   const ServeAuthAction = () => {
-    if (!isLoggedIn)
+    if (!state.theme.isLoggedIn)
       return (
         <div>
           <Link className="btn btn-primary m-2" link="/login">
@@ -32,7 +27,7 @@ const Header = ({ state, actions }) => {
           </Link>
         </div>
       );
-    if (isLoggedIn)
+    if (state.theme.isLoggedIn)
       return (
         <div>
           <Link

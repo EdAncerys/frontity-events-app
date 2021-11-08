@@ -4,12 +4,8 @@ import Image from "@frontity/components/image";
 import { colors } from "../config/colors";
 
 const event = ({ state, actions }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [allPanelistsID, setAllPanelistsID] = useState([]);
   const [allPanelists, setAllPanelists] = useState([]);
-
-  const [allAttendeesID, setAllAttendeesID] = useState([]);
-  const [allAttendees, setAllAttendees] = useState([]);
 
   const data = state.source.get(state.router.link);
   const eventData = state.source[data.type][data.id];
@@ -17,10 +13,6 @@ const event = ({ state, actions }) => {
 
   const { title, event_date, event_logo, panelists, attendees } = eventData.acf;
   const content = eventData.content.rendered;
-
-  useEffect(() => {
-    setIsLoggedIn(state.theme.isLoggedIn);
-  }, []);
 
   // GETTING PANELIST DATA ----------------------------------------------------------------
   if (panelists !== "")
@@ -41,27 +33,6 @@ const event = ({ state, actions }) => {
         return panelist.ID;
       });
       setAllPanelistsID(panelistsID);
-    }, []);
-
-  // GETTING ATTENDEES DATA ----------------------------------------------------------------
-  if (attendees !== "")
-    useEffect(async () => {
-      // http://localhost:8888/events/wp-json/wp/v2/registrations
-      console.log("get attendees triggered", attendees); // debug
-      await actions.source.fetch("/registrations"); // pre-fetch required data
-      const panelistsEndPoint = await state.source.get("/registrations"); // get data
-      console.log("registrations", panelistsEndPoint); // debug
-      // const panelistsObject = Object.values(panelistsEndPoint.items);
-      // const allPanelists = panelistsObject.map((panelist) => {
-      //   return state.source[panelist.type][panelist.id];
-      // });
-      // // console.log(allPanelists); // debug
-      // setAllPanelists(allPanelists);
-      // // Extracting event panelist IDs
-      // const panelistsID = Object.values(panelists).map((panelist) => {
-      //   return panelist.ID;
-      // });
-      // setAllPanelistsID(panelistsID);
     }, []);
 
   // HELPERS ----------------------------------------------------
@@ -104,8 +75,20 @@ const event = ({ state, actions }) => {
     });
   };
 
+  const ServeAttendeesContainer = () => {
+    if (panelists === "") return null;
+
+    return (
+      <div>
+        <p style={{ color: colors.blue }}>
+          Total attending: {attendees.length}
+        </p>
+      </div>
+    );
+  };
+
   const ServeRegistration = () => {
-    if (!isLoggedIn)
+    if (!state.theme.isLoggedIn)
       return (
         <div>
           <p className="card-text">
@@ -175,6 +158,7 @@ const event = ({ state, actions }) => {
         <div className="card-body m-2">
           <div dangerouslySetInnerHTML={{ __html: content }} />
           <ServePanelistContainer />
+          <ServeAttendeesContainer />
         </div>
 
         <div className="card text-center">
