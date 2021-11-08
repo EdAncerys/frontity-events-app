@@ -5,12 +5,17 @@ import { colors } from "../config/colors";
 
 const event = ({ state, actions }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [allPanelists, setAllPanelists] = useState([]);
   const [allPanelistsID, setAllPanelistsID] = useState([]);
+  const [allPanelists, setAllPanelists] = useState([]);
+
+  const [allAttendeesID, setAllAttendeesID] = useState([]);
+  const [allAttendees, setAllAttendees] = useState([]);
+
   const data = state.source.get(state.router.link);
   const eventData = state.source[data.type][data.id];
+  // console.log("eventData ", eventData);
 
-  const { title, event_date, event_logo, panelists } = eventData.acf;
+  const { title, event_date, event_logo, panelists, attendees } = eventData.acf;
   const content = eventData.content.rendered;
 
   useEffect(() => {
@@ -21,13 +26,14 @@ const event = ({ state, actions }) => {
   if (panelists !== "")
     useEffect(async () => {
       // http://localhost:8888/events/wp-json/wp/v2/panelists
+      console.log("get panelists triggered"); // debug
       await actions.source.fetch("/panelists"); // pre-fetch required data
       const panelistsEndPoint = await state.source.get("/panelists"); // get data
       const panelistsObject = Object.values(panelistsEndPoint.items);
       const allPanelists = panelistsObject.map((panelist) => {
         return state.source[panelist.type][panelist.id];
       });
-      console.log(allPanelists);
+      console.log("panelists ", panelistsEndPoint); // debug
       setAllPanelists(allPanelists);
 
       // Extracting event panelist IDs
@@ -35,6 +41,27 @@ const event = ({ state, actions }) => {
         return panelist.ID;
       });
       setAllPanelistsID(panelistsID);
+    }, []);
+
+  // GETTING ATTENDEES DATA ----------------------------------------------------------------
+  if (attendees !== "")
+    useEffect(async () => {
+      // http://localhost:8888/events/wp-json/wp/v2/registrations
+      console.log("get attendees triggered", attendees); // debug
+      await actions.source.fetch("/registrations"); // pre-fetch required data
+      const panelistsEndPoint = await state.source.get("/registrations"); // get data
+      console.log("registrations", panelistsEndPoint); // debug
+      // const panelistsObject = Object.values(panelistsEndPoint.items);
+      // const allPanelists = panelistsObject.map((panelist) => {
+      //   return state.source[panelist.type][panelist.id];
+      // });
+      // // console.log(allPanelists); // debug
+      // setAllPanelists(allPanelists);
+      // // Extracting event panelist IDs
+      // const panelistsID = Object.values(panelists).map((panelist) => {
+      //   return panelist.ID;
+      // });
+      // setAllPanelistsID(panelistsID);
     }, []);
 
   // HELPERS ----------------------------------------------------

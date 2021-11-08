@@ -1,6 +1,45 @@
-# frontity-events-app
+# <span style="color:#6166B3">frontity-events-app</spam>
 
 This project was bootstrapped with [Frontity](https://frontity.org/).
+
+### <span style="color:#C85C5C">Simple and basic frontity app to help test the Word Press & forntity.</span>
+
+Webb app have basic events project actions & usages.User able browse for featured events and hosting panelists.
+Featuring login/logout functionality & JWT and encrypted cookie 🍪 storage.
+
+### Basic Usage
+
+To use this app you need to set up Word Press instance locally or on the server. [MAMP](https://www.mamp.info/) is used to set up local WP server.
+
+Have to point home/main WP url to frontity.settings.js settings file. 
+WP have 3 main CPT set up (all of them have custom post fields (CPF)): 
+    
+  `Events` `Panelists` `Registrations`
+
+<span style="color:#678983">* See WP set instructions at the end of the md file </span>
+
+#### Launch a development server
+
+```
+npx frontity dev
+```
+
+#### Create your custom theme
+
+```
+npx frontity create-package your-custom-theme
+```
+
+Use the command `npx frontity create-package` to create a new package that can be set in your `frontity.settings.js` as your theme.
+
+That's it! Good luck
+
+# 👹
+
+lookatemail@gmail.com
+
+
+# Frontity docs
 
 #### Table of Contents
 
@@ -9,25 +48,7 @@ This project was bootstrapped with [Frontity](https://frontity.org/).
 - [Create a production-ready build](#create-a-production-ready-build)
 - [Deploy](#deploy)
 
-### Launch a development server
 
-```
-npx frontity dev
-```
-
-Runs the app in development mode. Open http://localhost:3000 to view it in the browser.
-
-The site will automatically reload if you make changes inside the `packages` folder. You will see the build errors in the console.
-
-> Have a look at our [Quick Start Guide](https://docs.frontity.org/getting-started/quick-start-guide)
-
-### Create your custom theme
-
-```
-npx frontity create-package your-custom-theme
-```
-
-Use the command `npx frontity create-package` to create a new package that can be set in your `frontity.settings.js` as your theme.
 
 > Have a look at our blog post [How to Create a React WordPress Theme in 30 Minutes](https://frontity.org/blog/how-to-create-a-react-theme-in-30-minutes/)
 
@@ -61,20 +82,66 @@ Upload your `static` folder to a CDN and your `server.js` file to a serverless s
 
 > Get more info about [how to deploy](https://docs.frontity.org/deployment) a Frontity project
 
----
+# WP configuration
 
-## Frontity Community
+First install a new local copy of Wordpress, you can use MAMP or Local to run it.
+Clean it out of all plugins and install the following: 
+- CPT UI
+- ACF Pro (license will be needed)
+- ACF to REST API
+- WP JWT Authentication 
 
-[![Community Forum Topics](https://img.shields.io/discourse/topics?color=blue&label=community%20forum&server=https%3A%2F%2Fcommunity.frontity.org%2F)](https://community.frontity.org/) [![Twitter: frontity](https://img.shields.io/twitter/follow/frontity?style=social)](https://twitter.com/frontity) [![Frontity GitHub Stars](https://img.shields.io/github/stars/frontity/frontity?style=social)](https://github.com/frontity/frontity)
+Post Types
 
-👋 &nbsp;We'd love for you to be part of the Frontity community. There are a variety of different ways in which you can find more information about the project, join in discussions about it, and also get involved:
+Create a custom post type called Events, ensure it is showing up in the REST API. For the event title we will use the standard post title, and for the event thumbnail when we create the events loop page we will use the Wordpress core thumbnail. 
 
-- **[Learn Frontity](https://frontity.org/learn/)**: in this page you can find Frontity's primary learning resources, including documentation resources, example projects, videos, and more.
-- **[Community forum](https://community.frontity.org/)**: Frontity's forum is a great place to ask questions, help fellow Frontity users, and share your projects. It's also where you can keep track of the development work, join feature discussions, and collaborate on building Frontity itself.
-- **[GitHub](https://github.com/frontity/frontity)**: for bug reports and code contributions. Questions are answered in the community forum.
+Create. Custom post type called Panelists, again make sure it is showing in the rest API, and use the Title field only, we will use a custom field for the photo of the panelist. 
 
-If you're looking for news and updates about Frontity, [Twitter](https://twitter.com/frontity) and the [blog](https://frontity.org/blog/) are pretty good places to start. You can also join the **[Frontity Newsletter](https://frontity.org/newsletter/)** and stay updated on new releases and features, learning resources, and community news.
+Crate a custom post type of Registrations, again expose it to the REST API and just use the title field. 
 
-### Contributing
 
-Frontity welcomes contributions in all forms. There are many different ways to support the project. Check out the **[How to contribute](https://docs.frontity.org/contributing/how-to-contribute)** page for ideas on contributing and helping make Frontity better.
+Custom Fields
+
+Events fields
+Add the following custom fields to the event post type: 
+- Event Date
+- Event Start Time
+- Timezone (this will be key later)
+- Event Logo (image field, be sure to mark it to return the URL in the settings)
+- Event Banner
+- Video URL
+- Chat URL (I will explain all with these last two)
+- Event Owner (A relationship field where you grab the users ID, so do a relationship field for users)
+
+Then add a slightly more complicated field called a repeater field, we use these a lot and it is important you get to know it. A repeater fields is like a table, where you can iterate through the rows in the table and it has various fields in each row. For the repeater field this is what I want you to do: 
+
+Call the repeater field: Agenda
+The fields for the repeater field are: 
+- Start time
+- End time
+- Title
+- Description
+- Panelists (this is a relationship field which will get panelists from the panelists custom post type and it returns the ID, we are going to query this to display the panelists for an event. This is an important process as these relationship are really good to master).
+- 
+
+Panelist fields
+Add the following fields to Panelists
+
+- First Name
+- Last Name
+- Email
+- Telephone
+- Mobile
+- Company 
+- Job Title
+- Image (return the URL)
+- Biography (WYSIWYG field as I want you to see how it works when a field outputs HTML, it’s not fun)
+
+Registrations Fields
+- First Name
+- Last Name
+- Email
+- Telephone
+- Company 
+- Job Title
+- Event ID (ties the registration to the event)
