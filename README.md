@@ -11,12 +11,12 @@ Featuring login/logout functionality & JWT and encrypted cookie 🍪 storage.
 
 To use this app you need to set up Word Press instance locally or on the server. [MAMP](https://www.mamp.info/) is used to set up local WP server.
 
-Have to point home/main WP url to frontity.settings.js settings file. 
-WP have 3 main CPT set up (all of them have custom post fields (CPF)): 
-    
-  `Events` `Panelists` `Registrations`
+Have to point home/main WP url to frontity.settings.js settings file.
+WP have 3 main CPT set up (all of them have custom post fields (CPF)):
 
-<span style="color:#678983">* See WP set instructions at the end of the md file </span>
+`Events` `Panelists` `Registrations`
+
+<span style="color:#678983">\* See WP set instructions at the end of the md file </span>
 
 #### Launch a development server
 
@@ -30,6 +30,20 @@ npx frontity dev
 npx frontity create-package your-custom-theme
 ```
 
+#### WP setup
+
+- Download latest [WP installation](https://en-gb.wordpress.org/download/)
+- Extract & add to `./MAMP/htdocs` directory to yopur application folder.
+- Lounch MAMP & navigate to phpMyAdmin. Create DB with the same name as your WP directory (see above). Have to point to same directory to work!
+- Navigate to `http://localhost:8888/YOUR_DB_NAME/` path & finish setup
+
+  `default username: root`
+  `default password: root`
+
+```
+npx frontity dev
+```
+
 Use the command `npx frontity create-package` to create a new package that can be set in your `frontity.settings.js` as your theme.
 
 That's it! Good luck
@@ -37,7 +51,6 @@ That's it! Good luck
 # 👹
 
 lookatemail@gmail.com
-
 
 # Frontity docs
 
@@ -47,8 +60,6 @@ lookatemail@gmail.com
 - [Create your custom theme](#create-your-custom-theme)
 - [Create a production-ready build](#create-a-production-ready-build)
 - [Deploy](#deploy)
-
-
 
 > Have a look at our blog post [How to Create a React WordPress Theme in 30 Minutes](https://frontity.org/blog/how-to-create-a-react-theme-in-30-minutes/)
 
@@ -85,25 +96,26 @@ Upload your `static` folder to a CDN and your `server.js` file to a serverless s
 # WP configuration
 
 First install a new local copy of Wordpress, you can use MAMP or Local to run it.
-Clean it out of all plugins and install the following: 
+Clean it out of all plugins and install the following:
+
 - CPT UI
 - ACF Pro (license will be needed)
 - ACF to REST API
-- WP JWT Authentication 
+- WP JWT Authentication
 
 Post Types
 
-Create a custom post type called Events, ensure it is showing up in the REST API. For the event title we will use the standard post title, and for the event thumbnail when we create the events loop page we will use the Wordpress core thumbnail. 
+Create a custom post type called Events, ensure it is showing up in the REST API. For the event title we will use the standard post title, and for the event thumbnail when we create the events loop page we will use the Wordpress core thumbnail.
 
-Create. Custom post type called Panelists, again make sure it is showing in the rest API, and use the Title field only, we will use a custom field for the photo of the panelist. 
+Create. Custom post type called Panelists, again make sure it is showing in the rest API, and use the Title field only, we will use a custom field for the photo of the panelist.
 
-Crate a custom post type of Registrations, again expose it to the REST API and just use the title field. 
-
+Crate a custom post type of Registrations, again expose it to the REST API and just use the title field.
 
 Custom Fields
 
 Events fields
-Add the following custom fields to the event post type: 
+Add the following custom fields to the event post type:
+
 - Event Date
 - Event Start Time
 - Timezone (this will be key later)
@@ -113,16 +125,17 @@ Add the following custom fields to the event post type:
 - Chat URL (I will explain all with these last two)
 - Event Owner (A relationship field where you grab the users ID, so do a relationship field for users)
 
-Then add a slightly more complicated field called a repeater field, we use these a lot and it is important you get to know it. A repeater fields is like a table, where you can iterate through the rows in the table and it has various fields in each row. For the repeater field this is what I want you to do: 
+Then add a slightly more complicated field called a repeater field, we use these a lot and it is important you get to know it. A repeater fields is like a table, where you can iterate through the rows in the table and it has various fields in each row. For the repeater field this is what I want you to do:
 
 Call the repeater field: Agenda
-The fields for the repeater field are: 
+The fields for the repeater field are:
+
 - Start time
 - End time
 - Title
 - Description
 - Panelists (this is a relationship field which will get panelists from the panelists custom post type and it returns the ID, we are going to query this to display the panelists for an event. This is an important process as these relationship are really good to master).
-- 
+-
 
 Panelist fields
 Add the following fields to Panelists
@@ -132,16 +145,17 @@ Add the following fields to Panelists
 - Email
 - Telephone
 - Mobile
-- Company 
+- Company
 - Job Title
 - Image (return the URL)
 - Biography (WYSIWYG field as I want you to see how it works when a field outputs HTML, it’s not fun)
 
 Registrations Fields
+
 - First Name
 - Last Name
 - Email
 - Telephone
-- Company 
+- Company
 - Job Title
 - Event ID (ties the registration to the event)
